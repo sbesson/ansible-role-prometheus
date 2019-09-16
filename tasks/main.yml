@@ -77,7 +77,8 @@
     name: alertmanager
     networks:
       - name: "{{ prometheus_docker_network }}"
-    published_ports: "{{ (prometheus_alertmanager_port > 0) | ternary([(prometheus_alertmanager_port | string) + ':9093'], []) }}"
+    published_ports: "{{ (prometheus_alertmanager_port > 0) |
+      ternary([(prometheus_alertmanager_port | string) + ':9093'], []) }}"
     # read_only: True
     recreate: "{{ prometheus_alertmanager_configuration.changed }}"
     restart_policy: always
@@ -94,7 +95,8 @@
     name: blackbox-exporter
     networks:
       - name: "{{ prometheus_docker_network }}"
-    published_ports: "{{ (prometheus_blackboxexporter_port > 0) | ternary([(prometheus_blackboxexporter_port | string) + ':9115'], []) }}"
+    published_ports: "{{ (prometheus_blackboxexporter_port > 0) |
+      ternary([(prometheus_blackboxexporter_port | string) + ':9115'], []) }}"
     # read_only: True
     recreate: "{{ prometheus_blackboxexporter_configuration.changed }}"
     restart_policy: always
@@ -116,9 +118,11 @@
     name: prometheus
     networks:
       - name: "{{ prometheus_docker_network }}"
-    published_ports: "{{ (prometheus_port > 0) | ternary([(prometheus_port | string) + ':9090'], []) }}"
+    published_ports: "{{ (prometheus_port > 0) |
+      ternary([(prometheus_port | string) + ':9090'], []) }}"
     # read_only: True
-    recreate: "{{ prometheus_configuration.changed or prometheus_alert_rules.changed }}"
+    recreate: "{{ prometheus_configuration.changed or
+      prometheus_alert_rules.changed }}"
     restart_policy: always
     state: started
     volumes:
