@@ -9,6 +9,7 @@ platforms:
   - name: prometheus
     image: centos/systemd
     image_version: latest
+    command: /sbin/init
     privileged: true
     ansible_groups:
       - docker-hosts
